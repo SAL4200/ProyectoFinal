@@ -1,19 +1,67 @@
-// ProyectoFinal.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
-
 #include <iostream>
+#include <string>
+using namespace::std;
+int codigo[5]; //codigo
+string nombre_c[5]; // nombre del cliente
+int edad[5]; // edad
+string nombre_c[5]; // genero 
+string eps[5]; // eps
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    do {
+        cout << "MENU PRINCIPAL";
+        cout << "\n1. Atender paciente\n";
+        cout << "2. Mostrar total del dia\n";
+        cout << "3. Salir\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        if (!productosIngresados && opcion != 1 && opcion != 0) {
+            cout << "\nDebe ingresar los productos primero.\n";
+            continue;
+        }
+
+        switch (opcion) {
+        case 1:
+            ingresarProductos();
+            break;
+        case 2:
+            mostrarProductos();
+            break;
+        case 3:
+            ingresarClientes();
+            break;
+        case 4:
+            procesarVenta();
+            break;
+        case 5:
+            mostrarReporteVentas();
+            break;
+        case 6:
+            mostrarReporteDescuentos();
+            break;
+        case 7:
+            mostrarPromedioVentas();
+            break;
+        case 8:
+            mostrarMayorMenorVenta();
+            break;
+        case 9:
+            mostrarDescuentosMayorMenor();
+            break;
+        case 10:
+            mostrarDescuentosPromedio();
+        case 0:
+            cout << "Saliendo del programa.\n";
+            break;
+        default:
+            cout << "Opción no válida. Intente de nuevo.\n";
+        }
+    } while (opcion != 0);
+
 }
 
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
+}
 
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
