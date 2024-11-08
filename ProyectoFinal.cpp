@@ -7,7 +7,7 @@ string apellido_p[5]; // apellido
 int edad[5]; // edad
 string genero[5]; // genero 
 string eps[5]; // eps
-string medicamentos {5}
+float precios[5]
 
 
 int main() {
