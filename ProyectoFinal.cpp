@@ -16,7 +16,7 @@ int main() {
     int p_conta = 0; // Contador de pacientes registrados
 
     do {
-        cout << "\nMENU PRINCIPAL\n";
+        cout << "\nMENU PRINCIPAL\n"; 
         cout << "1. Atender paciente\n";
         cout << "2. Mostrar total del dia\n";
         cout << "3. Salir\n";
@@ -27,7 +27,7 @@ int main() {
         case 1:
             int subOpcion;
             do {
-                cout << "\nMenu de opciones para paciente\n";
+                cout << "\nMenu de opciones para paciente\n"; //Submenu para el paciente
                 cout << "1. Ingresar paciente\n";
                 cout << "2. Asignar médico\n";
                 cout << "3. Historia Clínica\n";
