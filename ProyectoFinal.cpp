@@ -8,8 +8,9 @@ string nombre_c[5]; // genero
 string eps[5]; // eps
 
 
-int main()
-{
+int main(){
+int opcion;
+
     do {
         cout << "MENU PRINCIPAL";
         cout << "\n1. Atender paciente\n";
@@ -18,44 +19,47 @@ int main()
         cout << "Seleccione una opcion: ";
         cin >> opcion;
 
-        if (!productosIngresados && opcion != 1 && opcion != 0) {
-            cout << "\nDebe ingresar los productos primero.\n";
-            continue;
-        }
-
+    
         switch (opcion) {
         case 1:
-            ingresarProductos();
+            do {
+            cout<< "Menu de opciones";
+            cout<<" 1. Ingresar paciente";
+            cout<<" 2. Asignar médico";
+            cout <<" 3. Historia Clínica";
+            cou<< " 4. Asignar medicamentos";
+            cout<<" 5. Mostrar total a pagar";
+            cout <<" 6. Menú anterior";
+            cin >> opcion;
+                case 1:
+                    
+                break;
+                case 2:
+                break;
+                case 3:
+                ingresarClientes();
+                break;
+                case 4:
+                break;
+                case 5:
+                break;
+                case 6:
+                break;
+                default:
+                cout << "Opción no válida. Intente de nuevo.\n";
+                }
+            } while (opcion != 0);
+
+
+
             break;
         case 2:
-            mostrarProductos();
+            
             break;
         case 3:
-            ingresarClientes();
-            break;
-        case 4:
-            procesarVenta();
-            break;
-        case 5:
-            mostrarReporteVentas();
-            break;
-        case 6:
-            mostrarReporteDescuentos();
-            break;
-        case 7:
-            mostrarPromedioVentas();
-            break;
-        case 8:
-            mostrarMayorMenorVenta();
-            break;
-        case 9:
-            mostrarDescuentosMayorMenor();
-            break;
-        case 10:
-            mostrarDescuentosPromedio();
-        case 0:
-            cout << "Saliendo del programa.\n";
-            break;
+        cout << "Saliendo del programa.\n";
+        break;
+
         default:
             cout << "Opción no válida. Intente de nuevo.\n";
         }
