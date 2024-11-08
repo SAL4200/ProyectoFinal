@@ -2,7 +2,8 @@
 #include <string>
 using namespace::std;
 int codigo[5]; //codigo
-string nombre_c[5]; // nombre del cliente
+string nombre_p[5]; // nombre del cliente
+string apellido_p[5]; // apellido
 int edad[5]; // edad
 string genero[5]; // genero 
 string eps[5]; // eps
@@ -36,7 +37,9 @@ int main() {
                     cout << "Ingrese el codigo del paciente: ";
                     cin >> codigo[i];
                     cout << "Ingrese el nombre del paciente: ";
-                    cin >> nombre_c[i];
+                    cin >> nombre_p[i];
+                    cout << "Ingrese el apellido del paciente: ";
+                    cin >> apellido_p[i];
                     cout << "Ingrese la edad del paciente: ";
                     cin >> edad[i];
                     cout << "Ingrese el genero del paciente: ";
@@ -79,5 +82,4 @@ int main() {
 }
 
 }
-
 
