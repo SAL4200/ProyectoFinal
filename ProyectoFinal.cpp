@@ -37,7 +37,6 @@ int opcion;
                 case 2:
                 break;
                 case 3:
-                ingresarClientes();
                 break;
                 case 4:
                 break;
