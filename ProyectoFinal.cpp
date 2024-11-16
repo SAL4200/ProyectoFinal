@@ -29,12 +29,12 @@ int main() {
             do {
                 cout << "\nMenu de opciones para paciente\n"; //Submenu para el paciente
                 cout << "1. Ingresar paciente\n";
-                cout << "2. Asignar médico\n";
-                cout << "3. Historia Clínica\n";
+                cout << "2. Asignar medico\n";
+                cout << "3. Historia Clinica\n";
                 cout << "4. Asignar medicamentos\n";
                 cout << "5. Mostrar total a pagar\n";
-                cout << "6. Menú anterior\n";
-                cout << "Seleccione una opción: ";
+                cout << "6. Menu anterior\n";
+                cout << "Seleccione una opcion: ";
                 cin >> subOpcion;
 
                 switch (subOpcion) {
@@ -58,7 +58,7 @@ int main() {
                         cout << "Paciente ingresado correctamente.\n";
                     }
                     else {
-                        cout << "No hay espacio para más pacientes.\n";
+                        cout << "No hay espacio para mas pacientes.\n";
                     }
                     break;
                 case 2:
@@ -76,7 +76,7 @@ int main() {
                 case 6:
                     break; // Regresar al menú principal
                 default:
-                    cout << "Opción no válida. Intente de nuevo.\n";
+                    cout << "Opcion no valida. Intente de nuevo.\n";
                     break;
                 }
             } while (subOpcion != 6); // Continuar hasta que el usuario regrese al menú principal
@@ -92,7 +92,7 @@ int main() {
             break;
 
         default:
-            cout << "Opción no válida. Intente de nuevo.\n";
+            cout << "Opcion no valida. Intente de nuevo.\n";
             break;
         }
 
