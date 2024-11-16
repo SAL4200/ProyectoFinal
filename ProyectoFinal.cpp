@@ -76,14 +76,14 @@ int main() {
 
                     if (encontrado != -1) {
                         cout << "Medicos disponibles:\n";
-                        for (int j = 0; j < 5; j++) cout << j + 1 << ". " << medicos[j] << "\n";
+                        for (int j = 0; j < 5; j++) cout << j + 1 << ". " << medicos[j] << "\n"; //contador para mostrar los medicos
                         cout << "Seleccione el medico: ";
                         cin >> seleccion;
             
-                        if (seleccion >= 1 && seleccion <= 5)
-                            cout << "Medico asignado: " << medicos[seleccion - 1] << "\n";
+                        if (seleccion >= 1 && seleccion <= 5)  //verifica que seleccione correctamente el medico
+                            cout << "Medico asignado: " << medicos[seleccion - 1] << "\n"; 
                         else
-                            cout << "Selección inválida.\n";
+                            cout << "Selección invalida.\n";
                     } else {
                         cout << "Paciente no encontrado.\n";
                     }
