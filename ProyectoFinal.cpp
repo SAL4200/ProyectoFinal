@@ -62,6 +62,36 @@ int main() {
                     }
                     break;
                 case 2:
+                    if (p_conta > 0) {
+                    int paciente, encontrado = -1, seleccion;
+                    cout << "Ingrese el codigo del paciente: ";
+                    cin >> paciente;   
+
+                    for (int i = 0; i < p_conta; i++) {
+                    if (codigo[i] == paciente) {
+                    encontrado = i;
+                    break;
+                      }
+                     } //verifica el codigo del paciente en sistema
+
+                    if (encontrado != -1) {
+                        cout << "Medicos disponibles:\n";
+                        for (int j = 0; j < 5; j++) cout << j + 1 << ". " << medicos[j] << "\n";
+                        cout << "Seleccione el medico: ";
+                        cin >> seleccion;
+            
+                        if (seleccion >= 1 && seleccion <= 5)
+                            cout << "Medico asignado: " << medicos[seleccion - 1] << "\n";
+                        else
+                            cout << "Selección inválida.\n";
+                    } else {
+                        cout << "Paciente no encontrado.\n";
+                    }
+                } else {
+                    cout << "No hay pacientes registrados.\n";
+                }
+                     break;
+
                     
                     break;
                 case 3:
