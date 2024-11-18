@@ -10,6 +10,9 @@ int edad[5];          // edad del paciente
 string genero[5];     // género del paciente
 string eps[5];        // EPS del paciente
 string medicos[5] = { "Juan Lopez", "Maria Perez", "Carlos Ruiz", "Carlos Velasquez", "Sofia Gonzalez" }; // médicos
+string historia[5];   // Historia clínica de los pacientes
+string medicamentos[5][10]; // Medicamentos asignados a cada paciente
+float precios_med[5][10] = {}; // Precios de los medicamentos asignados
 
 int main() {
     int opcion;
@@ -24,10 +27,10 @@ int main() {
         cin >> opcion;
 
         switch (opcion) {
-        case 1:
+        case 1: {
             int subOpcion;
             do {
-                cout << "\nMenu de opciones para paciente\n"; //Submenu para el paciente
+                cout << "\nMenu de opciones para paciente\n"; // Submenu para el paciente
                 cout << "1. Ingresar paciente\n";
                 cout << "2. Asignar medico\n";
                 cout << "3. Historia Clinica\n";
@@ -53,69 +56,81 @@ int main() {
                         cin >> genero[p_conta];
                         cout << "Ingrese la EPS del paciente: ";
                         cin >> eps[p_conta];
+                        historia[p_conta] = "Sin registro"; // Inicializa la historia clínica
 
                         p_conta++;  // Incrementar el contador de pacientes registrados
                         cout << "Paciente ingresado correctamente.\n";
-                    }
-                    else {
+                    } else {
                         cout << "No hay espacio para mas pacientes.\n";
                     }
                     break;
-                case 2:
-                    if (p_conta > 0) {
-                    int paciente, encontrado = -1, seleccion;
-                    cout << "Ingrese el codigo del paciente: ";
-                    cin >> paciente;   
 
+                case 3: {
+                    int paciente, encontrado = -1;
+                    cout << "Ingrese el codigo del paciente: ";
+                    cin >> paciente;
+
+                    // Verifica el código del paciente en sistema
                     for (int i = 0; i < p_conta; i++) {
-                    if (codigo[i] == paciente) {
-                    encontrado = i;
-                    break;
-                      }
-                     } //verifica el codigo del paciente en sistema
+                        if (codigo[i] == paciente) {
+                            encontrado = i;
+                            break;
+                        }
+                    }
 
                     if (encontrado != -1) {
-                        cout << "Medicos disponibles:\n";
-                        for (int j = 0; j < 5; j++) cout << j + 1 << ". " << medicos[j] << "\n"; //contador para mostrar los medicos
-                        cout << "Seleccione el medico: ";
-                        cin >> seleccion;
-            
-                        if (seleccion >= 1 && seleccion <= 5)  //verifica que seleccione correctamente el medico
-                            cout << "Medico asignado: " << medicos[seleccion - 1] << "\n"; 
-                        else
-                            cout << "Selección invalida.\n";
+                        cout << "Historia actual del paciente: " << historia[encontrado] << "\n";
+                        cout << "Ingrese nueva entrada para la historia clinica (sin espacios): ";
+                        cin >> historia[encontrado]; // Solo permite palabras sin espacios
+                        cout << "Historia clinica actualizada.\n";
                     } else {
                         cout << "Paciente no encontrado.\n";
                     }
-                } else {
-                    cout << "No hay pacientes registrados.\n";
-                }
-                     break;
+                } break;
 
-                    
-                    break;
-                case 3:
-                    
-                    break;
-                case 4:
-                    
-                    break;
-                case 5:
-                    
-                    break;
+                case 4: {
+                    int paciente, encontrado = -1;
+                    cout << "Ingrese el codigo del paciente: ";
+                    cin >> paciente;
+
+                    // Verifica el código del paciente en sistema
+                    for (int i = 0; i < p_conta; i++) {
+                        if (codigo[i] == paciente) {
+                            encontrado = i;
+                            break;
+                        }
+                    }
+
+                    if (encontrado != -1) {
+                        int num_meds;
+                        cout << "Cuantos medicamentos desea asignar al paciente? ";
+                        cin >> num_meds;
+
+                        if (num_meds > 0 && num_meds <= 10) {
+                            for (int j = 0; j < num_meds; j++) {
+                                cout << "Ingrese el nombre del medicamento " << j + 1 << " (sin espacios): ";
+                                cin >> medicamentos[encontrado][j];
+                                cout << "Ingrese el precio del medicamento " << j + 1 << ": ";
+                                cin >> precios_med[encontrado][j];
+                            }
+                            cout << "Medicamentos asignados correctamente.\n";
+                        } else {
+                            cout << "Cantidad de medicamentos no valida.\n";
+                        }
+                    } else {
+                        cout << "Paciente no encontrado.\n";
+                    }
+                } break;
+
                 case 6:
                     break; // Regresar al menú principal
+
                 default:
                     cout << "Opcion no valida. Intente de nuevo.\n";
                     break;
                 }
             } while (subOpcion != 6); // Continuar hasta que el usuario regrese al menú principal
-
-            break;
-
-        case 2:
-            
-            break;
+        } break;
 
         case 3:
             cout << "Saliendo del programa.\n";
@@ -125,8 +140,7 @@ int main() {
             cout << "Opcion no valida. Intente de nuevo.\n";
             break;
         }
-
-    } while (opcion != 3); // Continuar hasta que el usuario seleccione salir
+    } while (opcion != 3);
 
     return 0;
 }
