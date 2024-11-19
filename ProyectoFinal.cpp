@@ -3,20 +3,33 @@
 
 using namespace std;
 
-int codigo[5];        // código del paciente
-string nombre_p[5];   // nombre del paciente
-string apellido_p[5]; // apellido del paciente
-int edad[5];          // edad del paciente
-string genero[5];     // género del paciente
-string eps[5];        // EPS del paciente
-string medicos[5] = { "Juan Lopez", "Maria Perez", "Carlos Ruiz", "Carlos Velasquez", "Sofia Gonzalez" }; // médicos
-string historia[5];   // Historia clínica de los pacientes
-string medicamentos[5][10]; // Medicamentos asignados a cada paciente
-float precios_med[5][10] = {}; // Precios de los medicamentos asignados
-
 int main() {
+    int codigo[100];       // Codigo del paciente
+    string nombre_p[100];  // Nombre del paciente
+    string apellido_p[100]; // Apellido del paciente
+    int edad[100];          // Edad del paciente
+    string genero[100];     // Genero del paciente
+    string eps[100];        // EPS del paciente
+    string medicos[5] = { "Juan Lopez", "Maria Perez", "Carlos Ruiz", "Carlos Velasquez", "Sofia Gonzalez" }; // Medicos
+    string historia[100];   // Historia clinica de los pacientes
+    string medicamentos[100][10]; // Medicamentos asignados a cada paciente
+    float precios_med[100][10] = {}; // Precios de los medicamentos asignados
+    string consultorio[5] = { "A1", "B2", "C3", "D4", "E5" }; // Consultorios
+    string medico_asignado[100]; // Medico asignado al paciente
+    string consultorio_asignado[100]; // Consultorio asignado
+    int tipo_cita[3] = {}; // Contadores: 0 = general, 1 = especialista, 2 = revision
+    float total_cita[100] = {}; // Costo total de la cita por paciente
+    float total_descuento[100] = {}; // Descuento aplicado por paciente
+    float total_recaudado = 0; // Total recaudado
+    float descuentos_aplicados = 0; // Total descuentos aplicados
+    int pagos_efectivo = 0, pagos_debito = 0, pagos_credito = 0; // Contadores de formas de pago
+    float recaudado_efectivo = 0, recaudado_debito = 0, recaudado_credito = 0; // Totales por forma de pago
+    int menores_edad = 0, mayores_edad = 0; // Contadores de menores y mayores de edad
+    int pacientes_con_descuento = 0; // Pacientes con descuento aplicado
+    int medicamentos_costosos = 0; // Pacientes con medicamentos mayores a $10,000
+    int total_pacientes = 0; // Total pacientes atendidos
+
     int opcion;
-    int p_conta = 0; // Contador de pacientes registrados
 
     do {
         cout << "\nMENU PRINCIPAL\n"; 
@@ -28,141 +41,120 @@ int main() {
 
         switch (opcion) {
         case 1: {
-            int subOpcion;
-            do {
-                cout << "\nMenu de opciones para paciente\n"; //Submenu para el paciente
-                cout << "1. Ingresar paciente\n";
-                cout << "2. Asignar medico\n";
-                cout << "3. Historia Clinica\n";
-                cout << "4. Asignar medicamentos\n";
-                cout << "5. Mostrar total a pagar\n";
-                cout << "6. Menu anterior\n";
-                cout << "Seleccione una opcion: ";
-                cin >> subOpcion;
+            if (total_pacientes < 100) {
+                int i = total_pacientes;
+                cout << "Ingrese el codigo del paciente: ";
+                cin >> codigo[i];
+                cout << "Ingrese el nombre del paciente: ";
+                cin >> nombre_p[i];
+                cout << "Ingrese el apellido del paciente: ";
+                cin >> apellido_p[i];
+                cout << "Ingrese la edad del paciente: ";
+                cin >> edad[i];
+                cout << "Ingrese el genero del paciente (M/F): ";
+                cin >> genero[i];
+                cout << "Ingrese la EPS del paciente: ";
+                cin >> eps[i];
+                historia[i] = "Sin registro";
 
-                switch (subOpcion) {
-                case 1:
-                    if (p_conta < 5) {
-                        // Ingresar un paciente, uno a la vez
-                        cout << "Ingrese el codigo del paciente: ";
-                        cin >> codigo[p_conta];
-                        cout << "Ingrese el nombre del paciente: ";
-                        cin >> nombre_p[p_conta];
-                        cout << "Ingrese el apellido del paciente: ";
-                        cin >> apellido_p[p_conta];
-                        cout << "Ingrese la edad del paciente: ";
-                        cin >> edad[p_conta];
-                        cout << "Ingrese el genero del paciente: ";
-                        cin >> genero[p_conta];
-                        cout << "Ingrese la EPS del paciente: ";
-                        cin >> eps[p_conta];
-                        historia[p_conta] = "Sin registro"; // Inicializa la historia clínica
+                // Asignar medico y consultorio
+                cout << "Medicos disponibles:\n";
+                for (int j = 0; j < 5; j++) 
+                    cout << j + 1 << ". " << medicos[j] << " (Consultorio: " << consultorio[j] << ")\n";
+                int seleccion;
+                cout << "Seleccione el medico: ";
+                cin >> seleccion;
+                medico_asignado[i] = medicos[seleccion - 1];
+                consultorio_asignado[i] = consultorio[seleccion - 1];
 
-                        p_conta++;  
-                        cout << "Paciente ingresado correctamente.\n";
-                    } else {
-                        cout << "No hay espacio para mas pacientes.\n";
-                    }
-                    break;
-
-                case 2:
-                    if (p_conta > 0) {
-                        int paciente, encontrado = -1, seleccion;
-                        cout << "Ingrese el codigo del paciente: ";
-                        cin >> paciente;   
-
-                        // Verifica el código del paciente en el sistema
-                        for (int i = 0; i < p_conta; i++) {
-                            if (codigo[i] == paciente) {
-                                encontrado = i;
-                                break;
-                            }
-                        }
-
-                        if (encontrado != -1) {
-                            cout << "Medicos disponibles:\n";
-                            for (int j = 0; j < 5; j++) 
-                                cout << j + 1 << ". " << medicos[j] << "\n"; //contador para mostrar los medicos
-                            cout << "Seleccione el medico: ";
-                            cin >> seleccion;
-            
-                            if (seleccion >= 1 && seleccion <= 5)  //verifica que seleccione correctamente el medico
-                                cout << "Medico asignado: " << medicos[seleccion - 1] << "\n"; 
-                            else
-                                cout << "Seleccion invalida.\n";
-                        } else {
-                            cout << "Paciente no encontrado.\n";
-                        }
-                    } else {
-                        cout << "No hay pacientes registrados.\n";
-                    }
-                    break;
-
-                case 3: {
-                    // Historia clínica
-                    int paciente, encontrado = -1;
-                    cout << "Ingrese el codigo del paciente: ";
-                    cin >> paciente;
-
-                    for (int i = 0; i < p_conta; i++) {
-                        if (codigo[i] == paciente) {
-                            encontrado = i;
-                            break;
-                        }
-                    }
-
-                    if (encontrado != -1) {
-                        cout << "Historia actual del paciente: " << historia[encontrado] << "\n";
-                        cout << "Ingrese nueva entrada para la historia clinica (sin espacios): ";
-                        cin >> historia[encontrado]; // No permite espacios
-                        cout << "Historia clinica actualizada.\n";
-                    } else {
-                        cout << "Paciente no encontrado.\n";
-                    }
-                } break;
-
-                case 4: {
-                    // Asignar medicamentos
-                    int paciente, encontrado = -1;
-                    cout << "Ingrese el codigo del paciente: ";
-                    cin >> paciente;
-
-                    for (int i = 0; i < p_conta; i++) {
-                        if (codigo[i] == paciente) {
-                            encontrado = i;
-                            break;
-                        }
-                    }
-
-                    if (encontrado != -1) {
-                        int num_meds;
-                        cout << "Cuantos medicamentos desea asignar al paciente? ";
-                        cin >> num_meds;
-
-                        if (num_meds > 0 && num_meds <= 10) {
-                            for (int j = 0; j < num_meds; j++) {
-                                cout << "Ingrese el nombre del medicamento " << j + 1 << " (sin espacios): ";
-                                cin >> medicamentos[encontrado][j];
-                                cout << "Ingrese el precio del medicamento " << j + 1 << ": ";
-                                cin >> precios_med[encontrado][j];
-                            }
-                            cout << "Medicamentos asignados correctamente.\n";
-                        } else {
-                            cout << "Cantidad de medicamentos no valida.\n";
-                        }
-                    } else {
-                        cout << "Paciente no encontrado.\n";
-                    }
-                } break;
-
-                case 6:
-                    break; // Regresar al menú principal
-
-                default:
-                    cout << "Opcion no valida. Intente de nuevo.\n";
-                    break;
+                // Determinar tipo de cita
+                int tipo;
+                cout << "Seleccione el tipo de cita:\n1. Medico General ($25,000)\n2. Especialista ($80,000)\n3. Revision (Gratis)\n";
+                cin >> tipo;
+                float costo_cita = 0;
+                if (tipo == 1) {
+                    costo_cita = 25000;
+                    tipo_cita[0]++;
+                } else if (tipo == 2) {
+                    costo_cita = 80000;
+                    tipo_cita[1]++;
+                } else if (tipo == 3) {
+                    tipo_cita[2]++;
                 }
-            } while (subOpcion != 6);
+                total_cita[i] = costo_cita;
+
+                // Asignar medicamentos
+                int num_meds;
+                cout << "Cuantos medicamentos desea asignar al paciente? ";
+                cin >> num_meds;
+                float total_meds = 0;
+                for (int j = 0; j < num_meds; j++) {
+                    cout << "Ingrese el nombre del medicamento " << j + 1 << ": ";
+                    cin >> medicamentos[i][j];
+                    cout << "Ingrese el precio del medicamento " << j + 1 << ": ";
+                    cin >> precios_med[i][j];
+                    total_meds += precios_med[i][j];
+                    if (precios_med[i][j] > 10000)
+                        medicamentos_costosos++;
+                }
+                total_cita[i] += total_meds;
+
+                // Aplicar descuento por edad
+                if (edad[i] < 5) {
+                    total_descuento[i] = total_cita[i] * 0.10;
+                    pacientes_con_descuento++;
+                } else if (edad[i] > 60) {
+                    total_descuento[i] = total_cita[i] * 0.20;
+                    pacientes_con_descuento++;
+                }
+                total_cita[i] -= total_descuento[i];
+                descuentos_aplicados += total_descuento[i];
+
+                // Determinar forma de pago
+                int forma_pago;
+                cout << "Seleccione el metodo de pago:\n1. Efectivo\n2. Tarjeta Debito\n3. Tarjeta Credito\n";
+                cin >> forma_pago;
+                if (forma_pago == 1) {
+                    pagos_efectivo++;
+                    recaudado_efectivo += total_cita[i];
+                } else if (forma_pago == 2) {
+                    pagos_debito++;
+                    recaudado_debito += total_cita[i];
+                } else if (forma_pago == 3) {
+                    pagos_credito++;
+                    recaudado_credito += total_cita[i];
+                }
+                total_recaudado += total_cita[i];
+
+                // Contar menores y mayores de edad
+                if (edad[i] < 18) 
+                    menores_edad++;
+                else 
+                    mayores_edad++;
+
+                total_pacientes++;
+            } else {
+                cout << "Capacidad maxima de pacientes alcanzada.\n";
+            }
+        } break;
+
+        case 2: {
+            cout << "\nREPORTE DEL DIA\n";
+            cout << "Pacientes atendidos: " << total_pacientes << "\n";
+            cout << "Total recaudado: $" << total_recaudado << "\n";
+            cout << "Total descuentos aplicados: $" << descuentos_aplicados << "\n";
+            cout << "Porcentaje de citas:\n";
+            cout << "  Medico General: " << (tipo_cita[0] * 100.0 / total_pacientes) << "%\n";
+            cout << "  Medico Especialista: " << (tipo_cita[1] * 100.0 / total_pacientes) << "%\n";
+            cout << "  Revision: " << (tipo_cita[2] * 100.0 / total_pacientes) << "%\n";
+            cout << "Recaudado por forma de pago:\n";
+            cout << "  Efectivo: $" << recaudado_efectivo << "\n";
+            cout << "  Tarjeta Debito: $" << recaudado_debito << "\n";
+            cout << "  Tarjeta Credito: $" << recaudado_credito << "\n";
+            cout << "Pacientes menores de edad: " << menores_edad << "\n";
+            cout << "Pacientes mayores de edad: " << mayores_edad << "\n";
+            cout << "Pacientes con descuento: " << pacientes_con_descuento << "\n";
+            cout << "Pacientes con medicamentos > $10,000: " << medicamentos_costosos << "\n";
         } break;
 
         case 3:
@@ -170,11 +162,9 @@ int main() {
             break;
 
         default:
-            cout << "Opcion no valida. Intente de nuevo.\n";
-            break;
+            cout << "Opcion no valida.\n";
         }
     } while (opcion != 3);
 
     return 0;
 }
-
